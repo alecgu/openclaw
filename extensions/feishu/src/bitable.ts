@@ -438,7 +438,12 @@ async function updateRecord(
   };
 }
 
-async function deleteRecord(client: Lark.Client, appToken: string, tableId: string, recordId: string) {
+async function deleteRecord(
+  client: Lark.Client,
+  appToken: string,
+  tableId: string,
+  recordId: string,
+) {
   const res = await client.bitable.appTableRecord.delete({
     path: { app_token: appToken, table_id: tableId, record_id: recordId },
   });
@@ -712,7 +717,8 @@ export function registerFeishuBitableTools(api: OpenClawPluginApi) {
   }>({
     name: "feishu_bitable_delete_record",
     label: "Feishu Bitable Delete Record",
-    description: "Permanently delete a record (row) from a Bitable table. This action is irreversible.",
+    description:
+      "Permanently delete a record (row) from a Bitable table. This action is irreversible.",
     parameters: DeleteRecordSchema,
     async execute({ params, defaultAccountId }) {
       return deleteRecord(
